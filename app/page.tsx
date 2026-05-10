@@ -1,7 +1,16 @@
 'use client'
 
-import { LaserScene } from '@/components/laser-scene'
-import { HandTracker3D } from '@/components/hand-tracker-3d'
+import dynamic from 'next/dynamic'
+
+const LaserScene = dynamic(
+  () => import('@/components/laser-scene').then(m => ({ default: m.LaserScene })),
+  { ssr: false, loading: () => <div className="w-full h-full bg-gray-100 animate-pulse rounded" /> }
+)
+
+const HandTracker3D = dynamic(
+  () => import('@/components/hand-tracker-3d').then(m => ({ default: m.HandTracker3D })),
+  { ssr: false }
+)
 
 const TEAM = ['Emmanuel', 'Jessica Juárez', 'Regina González', 'Regina Elorza', 'Andrea Piña']
 
