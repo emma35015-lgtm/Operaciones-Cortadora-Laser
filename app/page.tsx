@@ -1,7 +1,7 @@
 'use client'
 
-import { Spotlight } from '@/components/ui/spotlight'
 import { LaserScene } from '@/components/laser-scene'
+import { HandTracker3D } from '@/components/hand-tracker-3d'
 
 const TEAM = ['Emmanuel', 'Jessica Juárez', 'Regina González', 'Regina Elorza', 'Andrea Piña']
 
@@ -63,10 +63,8 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* HERO */}
-      <section className="relative w-full bg-black/[0.96] overflow-hidden pt-14">
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
-
+      {/* HERO — light */}
+      <section className="relative w-full bg-white overflow-hidden pt-14 border-b border-gray-100">
         {/* Mobile: stacked | Desktop: side by side */}
         <div className="flex flex-col md:flex-row md:h-screen">
 
@@ -75,14 +73,14 @@ export default function Home() {
             <span className="inline-block text-[#E8192C] text-xs md:text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4">
               Estudio del Trabajo · La Salle Bajío
             </span>
-            <h1 className="text-3xl md:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+            <h1 className="text-3xl md:text-6xl font-bold leading-tight text-gray-900">
               Estudio de<br />Tiempos
             </h1>
             <p className="mt-2 text-xl md:text-3xl font-semibold text-[#E8192C]">
               Cortadora Láser Fibra
             </p>
-            <p className="mt-4 text-neutral-300 max-w-md text-sm md:text-base leading-relaxed">
-              Análisis de la operación completa en <strong className="text-white">Herraidea</strong>,
+            <p className="mt-4 text-gray-500 max-w-md text-sm md:text-base leading-relaxed">
+              Análisis de la operación completa en <strong className="text-gray-900">Herraidea</strong>,
               León, Guanajuato. Determinación del Tiempo Estándar Permitido con sistema de calificación Westinghouse.
             </p>
             <div className="mt-6 md:mt-8 flex flex-wrap gap-3">
@@ -90,7 +88,7 @@ export default function Home() {
                 className="bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-5 py-2.5 md:px-6 md:py-3 rounded-lg transition-all hover:scale-105 text-sm">
                 Descargar Reporte Excel
               </a>
-              <a href="#empresa" className="border border-white/20 hover:border-white/40 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-lg transition-all hover:bg-white/5 text-sm">
+              <a href="#empresa" className="border border-gray-300 hover:border-gray-400 text-gray-700 px-5 py-2.5 md:px-6 md:py-3 rounded-lg transition-all hover:bg-gray-50 text-sm">
                 Ver contenido
               </a>
             </div>
@@ -102,9 +100,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — 3D Laser Cutter */}
-          <div className="flex-none md:flex-1 h-72 md:h-auto relative">
-            <LaserScene className="w-full h-full" />
+          {/* Right — 3D Laser Cutter (light background) */}
+          <div className="flex-none md:flex-1 h-72 md:h-auto relative bg-gray-50">
+            <LaserScene className="w-full h-full" light />
           </div>
         </div>
       </section>
@@ -405,6 +403,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* HAND TRACKER */}
+      <HandTracker3D />
+
       {/* FOOTER */}
       <footer className="border-t border-gray-200 py-6 md:py-8 px-6 md:px-16 bg-white">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-xs md:text-sm text-gray-400 text-center md:text-left">
@@ -427,7 +428,7 @@ function HeroStat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-xl md:text-2xl font-bold text-[#E8192C]">{value}</p>
-      <p className="text-xs text-neutral-500 mt-0.5">{label}</p>
+      <p className="text-xs text-gray-500 mt-0.5">{label}</p>
     </div>
   )
 }
