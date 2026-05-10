@@ -17,7 +17,7 @@ const HOTSPOTS: { pos: [number, number, number]; title: string; text: string }[]
   { pos: [-1.5, 0.5, 1.55], title: 'Estructura Base',   text: 'Bastidor principal. Su rigidez es fundamental para garantizar la precisión del corte. El módulo rojo frontal aloja la electrónica de potencia.' },
 ]
 
-export function LaserScene({ className }: { className?: string }) {
+export function LaserScene({ className, light }: { className?: string; light?: boolean }) {
   const mountRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<OrbitControls | null>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
@@ -42,8 +42,9 @@ export function LaserScene({ className }: { className?: string }) {
 
     // — Scene —
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0x0a0a0a)
-    scene.fog = new THREE.Fog(0x0a0a0a, 18, 50)
+    const bg = light ? 0xf0f0f0 : 0x0a0a0a
+    scene.background = new THREE.Color(bg)
+    scene.fog = new THREE.Fog(bg, 18, 50)
 
     // — Camera —
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100)
