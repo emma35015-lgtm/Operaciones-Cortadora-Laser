@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  basePath: '/Operaciones-Cortadora-Laser',
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
