@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card: #111111;
-  --card-foreground: #ededed;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #f5f5f5;
+  --card-foreground: #111111;
   --herraidea-red: #E8192C;
   --herraidea-red-dark: #b91224;
 }
