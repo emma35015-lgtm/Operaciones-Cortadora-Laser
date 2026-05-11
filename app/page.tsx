@@ -7,10 +7,6 @@ const LaserScene = dynamic(
   { ssr: false, loading: () => <div className="w-full h-full bg-gray-100 animate-pulse rounded" /> }
 )
 
-const HandTracker3D = dynamic(
-  () => import('@/components/hand-tracker-3d').then(m => ({ default: m.HandTracker3D })),
-  { ssr: false }
-)
 
 const TEAM = ['Emmanuel', 'Jessica Juárez', 'Regina González', 'Regina Elorza', 'Andrea Piña']
 
@@ -411,9 +407,6 @@ export default function Home() {
           <p className="mt-3 text-gray-400 text-xs">Descarga directa desde Google Drive</p>
         </div>
       </section>
-
-      {/* HAND TRACKER */}
-      <HandTracker3D />
 
       {/* FOOTER */}
       <footer className="border-t border-gray-200 py-6 md:py-8 px-6 md:px-16 bg-white">
