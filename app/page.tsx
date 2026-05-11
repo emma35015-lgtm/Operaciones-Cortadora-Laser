@@ -118,6 +118,7 @@ const GALLERY = [
   { id: '1wpwmDophSGfIeKOxUKC0z3hcdwYCh2kW', label: 'Proceso de corte' },
   { id: '1kZTS2GjyPum91JiZ5HGUSAFlBM7C8bR1', label: 'Piezas terminadas' },
   { id: '1zxO8r4DWDaBWQuAimJZQTfVTze21M6MU', label: 'Operación de la máquina' },
+  { id: '1mJwAORMU29gQ7-e6emWbjfD42u86R9nX', label: 'Video del proceso' },
 ]
 const EXCEL_ID = '1OPP_TeAwLtnVYDm_2b4N55g6og1x6FVz'
 
@@ -234,7 +235,7 @@ export default function Home() {
             Material visual del proceso de operación de la cortadora láser fibra en las instalaciones de Herraidea.
           </p>
         </AnimSection>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
           {GALLERY.map(({ id, label }, i) => (
             <AnimSection key={id} delay={i * 120}>
               <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-white h-full">
