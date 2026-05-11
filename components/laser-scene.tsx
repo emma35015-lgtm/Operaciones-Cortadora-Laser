@@ -81,12 +81,12 @@ export function LaserScene({ className, light }: { className?: string; light?: b
     scene.add(rimLight)
 
     // — Floor —
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.85, metalness: 0.1 }))
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({ color: 0x3e3e3e, roughness: 0.95, metalness: 0.0 }))
     floor.rotation.x = -Math.PI / 2
     floor.position.y = -0.01
     floor.receiveShadow = true
     scene.add(floor)
-    scene.add(new THREE.GridHelper(30, 30, 0x222222, 0x181818))
+    scene.add(new THREE.GridHelper(30, 30, 0x555555, 0x484848))
 
     // — Materials —
     const matNegro    = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.55, metalness: 0.5 })
