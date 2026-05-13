@@ -77,6 +77,28 @@ function AnimBar({ pct, delay = 0 }: { pct: number; delay?: number }) {
   )
 }
 
+function AnimGroupedBar({ op1, op2, op3, max, delay = 0 }: { op1: number; op2: number; op3: number; max: number; delay?: number }) {
+  const { ref, visible } = useInView()
+  const bars = [
+    { val: op1, color: 'bg-[#E8192C]' },
+    { val: op2, color: 'bg-red-800' },
+    { val: op3, color: 'bg-neutral-400' },
+  ]
+  return (
+    <div ref={ref} className="space-y-1.5">
+      {bars.map(({ val, color }, i) => (
+        <div key={i} className="flex items-center gap-2">
+          <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div className={`h-full ${color} rounded-full transition-all duration-1000 ease-out`}
+              style={{ width: visible ? `${(val / max) * 100}%` : '0%', transitionDelay: `${delay + i * 80}ms` }} />
+          </div>
+          <span className="text-xs text-gray-400 w-8 text-right tabular-nums">{val.toFixed(2)}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const TEAM = ['Emmanuel', 'Jessica Juárez', 'Regina González', 'Regina Elorza', 'Andrea Piña']
@@ -97,12 +119,39 @@ const OPERATORS = [
 ]
 
 const ELEMENT_DATA = [
-  { element: 'Cargar lámina',    op1: 1.85, op2: 2.10, op3: 2.65 },
-  { element: 'Configurar CNC',   op1: 2.45, op2: 2.95, op3: 3.50 },
-  { element: 'Posicionar cero',  op1: 1.20, op2: 1.35, op3: 1.55 },
-  { element: 'Ejecutar corte',   op1: 4.05, op2: 4.13, op3: 4.16 },
-  { element: 'Retirar piezas',   op1: 1.75, op2: 2.00, op3: 2.30 },
-  { element: 'Limpieza y retal', op1: 2.00, op2: 2.27, op3: 2.18 },
+  { element: 'Cargar lámina',    op1: 2.40, op2: 2.88, op3: 3.61 },
+  { element: 'Configurar CNC',   op1: 1.23, op2: 1.73, op3: 2.63 },
+  { element: 'Posicionar cero',  op1: 0.57, op2: 0.86, op3: 1.31 },
+  { element: 'Ejecutar corte',   op1: 4.07, op2: 4.13, op3: 4.16 },
+  { element: 'Retirar piezas',   op1: 1.44, op2: 1.83, op3: 2.46 },
+  { element: 'Limpieza y retal', op1: 1.06, op2: 1.43, op3: 1.87 },
+]
+
+const WESTINGHOUSE = [
+  { op: 'Op. 1', level: 'Experimentado', fc: 1.21, badge: 'bg-[#E8192C] text-white', sum: '+0.21',
+    factors: [
+      { name: 'Habilidad',    grade: 'B2 Excelente', val:  0.08, note: '>3 años operando; parámetros CNC de memoria, posiciona el cero al primer intento.' },
+      { name: 'Esfuerzo',     grade: 'B2 Excelente', val:  0.08, note: 'Ritmo constante; aprovecha los tiempos de corte automático para preparar la siguiente lámina.' },
+      { name: 'Condiciones',  grade: 'C Buenas',     val:  0.02, note: 'Iluminación y máquina en buen estado; ruido ambiental y temperatura no controlada.' },
+      { name: 'Consistencia', grade: 'B Excelente',  val:  0.03, note: 'Variaciones <0.15 min entre ciclos; método completamente interiorizado.' },
+    ],
+  },
+  { op: 'Op. 2', level: 'Intermedio', fc: 1.14, badge: 'bg-red-800 text-white', sum: '+0.14',
+    factors: [
+      { name: 'Habilidad',    grade: 'C1 Buena',    val:  0.06, note: 'Conoce el flujo pero consulta parámetros ocasionalmente; movimientos correctos, no optimizados.' },
+      { name: 'Esfuerzo',     grade: 'C1 Bueno',    val:  0.05, note: 'Buen ritmo; se detiene a verificar decisiones que el experimentado ya automatizó.' },
+      { name: 'Condiciones',  grade: 'C Buenas',    val:  0.02, note: 'Mismas condiciones de taller que Op. 1.' },
+      { name: 'Consistencia', grade: 'C Buena',     val:  0.01, note: 'Variación moderada ~0.3 min entre ciclos; técnica en proceso de estandarización.' },
+    ],
+  },
+  { op: 'Op. 3', level: 'Novato', fc: 1.00, badge: 'bg-neutral-500 text-white', sum: '±0.00',
+    factors: [
+      { name: 'Habilidad',    grade: 'D Regular',   val:  0.00, note: 'Titubea al configurar parámetros y posicionar el cero; técnica aún en formación.' },
+      { name: 'Esfuerzo',     grade: 'D Regular',   val:  0.00, note: 'Revisa todo dos veces por inseguridad; no es falta de ganas sino de automatización.' },
+      { name: 'Condiciones',  grade: 'C Buenas',    val:  0.02, note: 'Mismas condiciones de taller.' },
+      { name: 'Consistencia', grade: 'E Aceptable', val: -0.02, note: 'Alta variación entre ciclos; sin método repetible todavía, típico en curva de aprendizaje.' },
+    ],
+  },
 ]
 
 const MARCO_TEORICO = [
@@ -464,6 +513,12 @@ export default function Home() {
                     <td className="px-4 md:px-6 py-3 text-center text-gray-700">{op3.toFixed(2)}</td>
                   </tr>
                 ))}
+                <tr className="bg-gray-100 border-t border-gray-200 font-semibold">
+                  <td className="px-4 md:px-6 py-3 text-gray-700">Suma T.O.</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-700">10.77 min</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-700">12.86 min</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-700">16.04 min</td>
+                </tr>
                 <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
                   <td className="px-4 md:px-6 py-3 text-gray-900">T.S.P. Total</td>
                   <td className="px-4 md:px-6 py-3 text-center text-[#E8192C]">15.14 min</td>
@@ -472,6 +527,144 @@ export default function Home() {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </AnimSection>
+
+        {/* Grouped bar chart */}
+        <AnimSection delay={200} className="mt-8">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+              <p className="text-sm font-semibold text-gray-700">T.O. promedio por elemento (min)</p>
+              <div className="flex gap-4">
+                {([['Op. 1','bg-[#E8192C]'],['Op. 2','bg-red-800'],['Op. 3','bg-neutral-400']] as const).map(([label, color]) => (
+                  <div key={label} className="flex items-center gap-1.5">
+                    <div className={`w-2.5 h-2.5 rounded-full ${color}`} />
+                    <span className="text-xs text-gray-500">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-5">
+              {ELEMENT_DATA.map(({ element, op1, op2, op3 }, i) => (
+                <div key={element} className="flex items-start gap-4">
+                  <div className="w-28 md:w-36 flex-shrink-0 pt-0.5">
+                    <p className="text-xs font-medium text-gray-700 leading-tight">{element}</p>
+                  </div>
+                  <div className="flex-1">
+                    <AnimGroupedBar op1={op1} op2={op2} op3={op3} max={4.16} delay={i * 100} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-4 border-t border-gray-200 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-500">
+              <span>Op.1: <strong className="text-gray-800">10.77 min/ciclo</strong></span>
+              <span>Op.2: <strong className="text-gray-800">12.86 min/ciclo</strong></span>
+              <span>Op.3: <strong className="text-gray-800">16.04 min/ciclo</strong></span>
+              <span className="md:ml-auto">Promedio general: <strong className="text-gray-800">13.22 min/ciclo</strong></span>
+            </div>
+          </div>
+        </AnimSection>
+      </section>
+
+      <LightDivider />
+
+      {/* WESTINGHOUSE */}
+      <section id="westinghouse" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
+        <AnimSection>
+          <SectionLabel>04c · Calificación de actuación</SectionLabel>
+          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-3 md:mb-4">Sistema Westinghouse</h2>
+          <p className="text-gray-500 mb-8 text-sm md:text-base max-w-2xl">
+            Evaluación de cuatro factores por operario. La suma de valores (C) determina el Factor de Calificación:{' '}
+            <strong className="text-gray-900">F.C. = 1 + C</strong>.
+          </p>
+        </AnimSection>
+
+        {/* Overview table */}
+        <AnimSection delay={100}>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-8">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Factor</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Op. 1 Exp.</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-red-800 uppercase tracking-wider">Op. 2 Inter.</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Op. 3 Novato</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {['Habilidad','Esfuerzo','Condiciones','Consistencia'].map((factor, fi) => (
+                  <tr key={factor} className={fi % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800">{factor}</td>
+                    {WESTINGHOUSE.map(({ factors }, oi) => {
+                      const f = factors[fi]
+                      return (
+                        <td key={oi} className="px-4 md:px-6 py-3 text-center">
+                          <span className="text-xs text-gray-600">{f.grade}</span>
+                          <span className={`ml-2 text-xs font-bold ${f.val > 0 ? 'text-[#E8192C]' : f.val < 0 ? 'text-orange-500' : 'text-gray-400'}`}>
+                            {f.val > 0 ? `+${f.val.toFixed(2)}` : f.val.toFixed(2)}
+                          </span>
+                        </td>
+                      )
+                    })}
+                  </tr>
+                ))}
+                <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
+                  <td className="px-4 md:px-6 py-3 text-gray-900">F.C. = 1 + Σ C</td>
+                  {WESTINGHOUSE.map(({ fc, sum }, i) => (
+                    <td key={i} className="px-4 md:px-6 py-3 text-center">
+                      <span className="text-gray-400 text-xs font-normal">{sum} → </span>
+                      <span className={`text-sm font-bold ${i === 0 ? 'text-[#E8192C]' : i === 1 ? 'text-red-800' : 'text-gray-600'}`}>{fc.toFixed(2)}</span>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </AnimSection>
+
+        {/* Operator cards */}
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+          {WESTINGHOUSE.map(({ op, level, fc, badge, factors }, i) => (
+            <AnimSection key={op} delay={i * 120}>
+              <div className="bg-white border border-gray-200 rounded-xl p-4 md:p-6 h-full shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <span className={`${badge} text-xs font-bold px-2 py-1 rounded`}>{level}</span>
+                    <h3 className="text-gray-900 font-bold mt-2 text-base">{op}</h3>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-400">F.C.</p>
+                    <p className="text-2xl font-black text-[#E8192C]">{fc.toFixed(2)}</p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {factors.map(({ name, grade, val, note }) => (
+                    <div key={name} className="border-l-2 border-gray-100 pl-3">
+                      <div className="flex justify-between items-baseline gap-2">
+                        <span className="text-xs font-semibold text-gray-700 whitespace-nowrap">{name}</span>
+                        <span className={`text-xs font-bold whitespace-nowrap ${val > 0 ? 'text-[#E8192C]' : val < 0 ? 'text-orange-500' : 'text-gray-400'}`}>
+                          {val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2)} · {grade}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{note}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimSection>
+          ))}
+        </div>
+
+        {/* Conclusion */}
+        <AnimSection delay={300} className="mt-6">
+          <div className="bg-red-50 border border-red-100 rounded-xl p-4 md:p-6">
+            <h3 className="text-gray-900 font-semibold mb-2 text-sm md:text-base">Interpretación</h3>
+            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+              El Operario 1 trabaja <strong className="text-gray-900">21% más rápido</strong> que el ritmo normal de referencia;
+              el Operario 2, <strong className="text-gray-900">14% más rápido</strong>; y el Operario 3{' '}
+              <strong className="text-gray-900">exactamente en el ritmo normal</strong> (F.C. = 1.00), pero con baja consistencia.
+              Al calcular T.N. = T.O. × F.C., se normaliza el tiempo de los operarios más rápidos al ritmo promedio estándar.
+            </p>
           </div>
         </AnimSection>
       </section>
