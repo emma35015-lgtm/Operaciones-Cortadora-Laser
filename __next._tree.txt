@@ -1,4 +1,4 @@
-:HL["/Operaciones-Cortadora-Laser/_next/static/chunks/0v-_3a18b5_rx.css","style"]
+:HL["/Operaciones-Cortadora-Laser/_next/static/chunks/07tloe6xm03j1.css","style"]
 :HL["/Operaciones-Cortadora-Laser/_next/static/media/797e433ab948586e-s.p.0.q-h669a_dqa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Operaciones-Cortadora-Laser/_next/static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"R9L8C5TeSUMgR0Nv0uEYQ"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"jsKawCgOAE4I05eSH6wv6"}
