@@ -350,10 +350,6 @@ export default function Home() {
           <a href="#conclusiones" className="hover:text-[#E8192C] transition-colors">Conclusiones</a>
           <a href="#comparacion"  className="hover:text-[#E8192C] transition-colors">MTM</a>
         </div>
-        <a href={EXCEL_URL} target="_blank" rel="noopener noreferrer"
-          className="bg-[#E8192C] hover:bg-[#b91224] text-white text-xs md:text-sm font-medium px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
-          Descargar Excel
-        </a>
       </nav>
 
       {/* HERO */}
