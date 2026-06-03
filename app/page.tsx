@@ -348,36 +348,40 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="relative w-full bg-white overflow-hidden pt-14 border-b border-gray-100">
-        <div className="flex flex-col md:flex-row md:h-screen">
-          <div className="flex-none md:flex-1 px-6 py-10 md:p-16 relative z-10 flex flex-col justify-center">
+      <section className="relative w-full bg-white overflow-hidden pt-14 border-b border-gray-100 min-h-[calc(100vh-56px)]">
+        <div className="flex flex-col md:flex-row min-h-[calc(100vh-56px)]">
+          {/* Left: text */}
+          <div className="flex-none md:w-2/5 px-6 py-10 md:p-14 relative z-10 flex flex-col justify-center">
             <AnimSection delay={0}>
-              <span className="inline-block text-[#E8192C] text-xs md:text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4">
+              <span className="inline-block text-[#E8192C] text-xs font-semibold tracking-widest uppercase mb-3">
                 Estudio del Trabajo · La Salle Bajío
               </span>
-              <h1 className="text-3xl md:text-6xl font-bold leading-tight text-gray-900">
-                Estudio de<br />Tiempos
+              <h1 className="text-6xl md:text-8xl font-black leading-none text-gray-900 mb-3">
+                Herraidea
               </h1>
-              <p className="mt-2 text-xl md:text-3xl font-semibold text-[#E8192C]">
+              <p className="text-base md:text-xl font-semibold text-gray-500 mb-1">
+                Estudio de Tiempos
+              </p>
+              <p className="text-base md:text-xl font-semibold text-[#E8192C] mb-4">
                 Cortadora Láser Fibra
               </p>
-              <p className="mt-4 text-gray-500 max-w-md text-sm md:text-base leading-relaxed">
-                Análisis de la operación completa en <strong className="text-gray-900">Herraidea</strong>,
-                León, Guanajuato. Determinación del Tiempo Estándar Permitido con sistema de calificación Westinghouse.
+              <p className="text-gray-400 max-w-sm text-sm leading-relaxed">
+                León, Guanajuato · Determinación del Tiempo Estándar Permitido
+                con calificación Westinghouse y análisis MTM-1.
               </p>
-              <div className="mt-6 md:mt-8 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3">
                 <a href={`https://drive.google.com/uc?export=download&id=${EXCEL_ID}`} target="_blank" rel="noopener noreferrer"
-                  className="bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-5 py-2.5 md:px-6 md:py-3 rounded-lg transition-all hover:scale-105 text-sm">
+                  className="bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-5 py-2.5 rounded-lg transition-all hover:scale-105 text-sm">
                   Descargar Reporte Excel
                 </a>
-                <a href="#empresa" className="border border-gray-300 hover:border-gray-400 text-gray-700 px-5 py-2.5 md:px-6 md:py-3 rounded-lg transition-all hover:bg-gray-50 text-sm">
+                <a href="#empresa" className="border border-gray-300 hover:border-gray-400 text-gray-700 px-5 py-2.5 rounded-lg transition-all hover:bg-gray-50 text-sm">
                   Ver contenido
                 </a>
               </div>
             </AnimSection>
 
-            {/* Animated stats */}
-            <div className="mt-8 grid grid-cols-2 md:flex md:flex-wrap gap-4 md:gap-6">
+            {/* Stats */}
+            <div className="mt-8 grid grid-cols-2 gap-4">
               <AnimatedStat label="Operarios evaluados"      end={3} />
               <AnimatedStat label="Elementos cronometrados"  end={6} />
               <AnimatedStat label="T.S.P. mínimo (min)"     end={15.14} decimals={2} />
@@ -385,11 +389,328 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex-none md:flex-1 h-72 md:h-auto relative bg-gray-50">
+          {/* Right: 3D model — dominant */}
+          <div className="flex-none md:w-3/5 h-72 md:h-auto relative bg-gray-50">
             <LaserScene className="w-full h-full" light />
           </div>
         </div>
       </section>
+      <LightDivider />
+
+      {/* COMPARACIÓN MTM */}
+      <section id="comparacion" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
+        <AnimSection>
+          <SectionLabel>07 · Comparación de métodos</SectionLabel>
+          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-6 md:mb-8">Cronometraje vs MTM</h2>
+        </AnimSection>
+
+        {/* MTM Hero Banner */}
+        <AnimSection delay={100}>
+          <div className="bg-gray-900 rounded-2xl p-7 md:p-12 mb-8 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-[#E8192C]/5 rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#E8192C]/5 rounded-full translate-y-1/3 -translate-x-1/4 pointer-events-none" />
+            <div className="relative grid md:grid-cols-2 gap-8 items-start">
+
+              {/* Izquierda: acrónimo + definición */}
+              <div>
+                <div className="flex gap-0.5 mb-3">
+                  {['M','T','M'].map((l, i) => (
+                    <span key={i} className={`text-6xl md:text-8xl font-black leading-none ${i % 2 === 0 ? 'text-[#E8192C]' : 'text-white'}`}>{l}</span>
+                  ))}
+                </div>
+                <p className="text-white/50 text-xs uppercase tracking-widest mb-4">Methods Time Measurement · Sistema MTM-1</p>
+                <p className="text-white/80 text-sm md:text-base leading-relaxed mb-4">
+                  Conjunto de tablas de movimientos-tiempo que permite calcular el tiempo estándar descomponiendo
+                  cualquier operación manual en movimientos básicos con valores predeterminados —{' '}
+                  <strong className="text-white">sin necesidad de cronómetro ni de calificar al operario</strong>.
+                </p>
+                <p className="text-white/60 text-sm leading-relaxed mb-5">
+                  Existen alrededor de <strong className="text-white">50 sistemas diferentes</strong> de tiempos predeterminados.
+                  El MTM-1 es el más extendido en la industria manufacturera.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['MTM-1','Work-Factor','MOST','MODAPTS'].map(s => (
+                    <span key={s} className={`text-xs px-3 py-1 rounded-full border ${s === 'MTM-1' ? 'bg-[#E8192C]/20 border-[#E8192C]/40 text-[#E8192C]' : 'bg-white/5 border-white/10 text-white/50'}`}>{s}</span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Derecha: datos clave */}
+              <div className="space-y-3">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Unidad de tiempo — TMU</p>
+                  <p className="text-white font-black text-2xl mb-1">1 TMU</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/50">
+                    <span>= 0.0006 min</span>
+                    <span>= 0.036 seg</span>
+                    <span>= 0.00001 hr</span>
+                  </div>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-3">Formas de aplicación</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                      <p className="text-white font-semibold text-sm">Observación directa</p>
+                      <p className="text-white/40 text-xs mt-1">Sobre el proceso en curso</p>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                      <p className="text-white font-semibold text-sm">Visualización</p>
+                      <p className="text-white/40 text-xs mt-1">Sin proceso real, por simulación</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Procedimiento (5 pasos)</p>
+                  <ol className="space-y-1">
+                    {[
+                      'Dividir la operación en elementos',
+                      'Identificar los movimientos básicos',
+                      'Obtener valores TMU de las tablas',
+                      'Aplicar suplementos por fatiga',
+                      'Calcular el tiempo estándar',
+                    ].map((paso, i) => (
+                      <li key={i} className="flex gap-2 text-xs text-white/60">
+                        <span className="text-[#E8192C] font-bold flex-shrink-0">{i+1}.</span>
+                        <span>{paso}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimSection>
+
+        {/* Usos del MTM */}
+        <AnimSection delay={150}>
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Usos del MTM en la industria</h3>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-10">
+            {[
+              { n:'01', text:'Desarrollo de buenos métodos antes de que inicie la producción.' },
+              { n:'02', text:'Mejoramiento y optimización de los métodos actuales de trabajo.' },
+              { n:'03', text:'Establecimiento de normas de tiempo en trabajos individuales.' },
+              { n:'04', text:'Cálculo y control de costos de mano de obra.' },
+              { n:'05', text:'Entrenamiento de empleados para que tengan conciencia de los métodos.' },
+            ].map(({ n, text }) => (
+              <div key={n} className="flex gap-3 bg-gray-50 border border-gray-200 rounded-xl p-4 hover:border-[#E8192C]/30 transition-colors">
+                <span className="text-[#E8192C] font-black text-lg flex-shrink-0 leading-tight">{n}</span>
+                <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+        </AnimSection>
+
+        {/* Aplicación MTM-1 en Herraidea */}
+        <AnimSection delay={100}>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6 mb-6">
+            <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Aplicación a la operación de Herraidea</p>
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+              Se aplicó MTM-1 a los mismos <strong className="text-gray-900">6 elementos</strong> estudiados por cronometraje,
+              descomponiendo cada uno en movimientos bimanuales básicos. El análisis arrojó{' '}
+              <strong className="text-gray-900">1,237.7 TMU</strong> de movimiento manual, equivalentes a{' '}
+              <strong className="text-gray-900">49.9 segundos</strong> de tiempo estándar (con 12% de tolerancia).
+              El tiempo de máquina del corte láser (<strong className="text-gray-900">~4 min</strong>) no es captado por MTM-1,
+              ya que el método solo contabiliza movimientos humanos.
+            </p>
+          </div>
+        </AnimSection>
+
+        {/* Accordion por elemento */}
+        <AnimSection delay={150}>
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Análisis de movimientos por elemento</h3>
+          <p className="text-gray-500 text-xs md:text-sm mb-4">Haz clic en cada elemento para ver el desglose de sub-elementos y movimientos MTM aplicados.</p>
+          <MtmAccordion elements={MTM_ELEMENTS} />
+        </AnimSection>
+
+        {/* Resumen consolidado MTM */}
+        <AnimSection delay={100} className="mt-8 mb-10">
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Resumen consolidado MTM-1</h3>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-6">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Elemento</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">TMU Total</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivelado (s)</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">+12%</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">T. Estándar (s)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {MTM_ELEMENTS.map(({ num, title, tmu, tNivelado, tolerancia, tEstandar }, i) => (
+                  <tr key={num} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{num}. {title}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{tmu.toFixed(1)}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{tNivelado.toFixed(2)}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-gray-400 font-mono text-xs tabular-nums">{tolerancia.toFixed(2)}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-bold text-xs tabular-nums">{tEstandar.toFixed(2)}</td>
+                  </tr>
+                ))}
+                <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
+                  <td className="px-4 md:px-6 py-3 text-gray-900">TOTAL</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-700 font-mono text-xs tabular-nums">1,237.7</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-700 font-mono text-xs tabular-nums">44.56</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-400 font-mono text-xs tabular-nums">5.35</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono text-sm tabular-nums">49.90</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* TMU bar chart */}
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-8">
+            <p className="text-sm font-semibold text-gray-700 mb-5">TMU por elemento — parte manual</p>
+            <div className="space-y-4">
+              {MTM_ELEMENTS.map(({ num, title, tmu, tmuPct }, i) => (
+                <div key={num} className="flex items-center gap-4">
+                  <div className="w-28 md:w-40 flex-shrink-0">
+                    <p className="text-xs font-medium text-gray-700 leading-tight">{num}. {title.split(' ').slice(0, 2).join(' ')}</p>
+                  </div>
+                  <div className="flex-1 h-7 bg-gray-100 rounded overflow-hidden">
+                    <AnimBar pct={tmuPct} delay={i * 80} />
+                  </div>
+                  <span className="text-xs font-bold text-gray-700 w-20 text-right flex-shrink-0 tabular-nums">{tmu.toFixed(0)} TMU</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </AnimSection>
+
+        {/* Comparación real con cronometraje */}
+        <AnimSection delay={100} className="mb-10">
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Comparación real: Cronometraje vs MTM-1</h3>
+          <p className="text-gray-500 text-xs md:text-sm mb-5">Operario 1 (Experimentado) · F.C. = 1.21 · Suplementos = 14% (cronometraje) / 12% (MTM)</p>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Elemento</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Crono T.E.S. (min)</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MTM-1 (min)</th>
+                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Δ Diferencia</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {MTM_COMPARISON_REAL.map(({ elem, desc, crono, mtm, delta, pct }, i) => (
+                  <tr key={elem} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{elem}. {desc}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono text-xs tabular-nums">{crono.toFixed(2)}</td>
+                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{mtm.toFixed(2)}</td>
+                    <td className="px-4 md:px-6 py-3 text-center">
+                      <span className="text-xs font-bold text-orange-500 tabular-nums">{delta.toFixed(2)} ({pct}%)</span>
+                    </td>
+                  </tr>
+                ))}
+                <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
+                  <td className="px-4 md:px-6 py-3 text-gray-900">TOTAL</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono tabular-nums">14.85</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono tabular-nums">0.83</td>
+                  <td className="px-4 md:px-6 py-3 text-center text-orange-500 font-bold">−14.02 min</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 md:p-5">
+            <h4 className="text-gray-900 font-semibold mb-1 text-sm">Lectura de las diferencias</h4>
+            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+              La mayor brecha está en el <strong className="text-gray-900">Elemento 4 (Ejecutar corte)</strong>:
+              el cronometraje registra 5.61 min y el MTM-1 solo 0.09 min (−98%). No es un error metodológico —
+              el corte lo ejecuta la máquina y MTM-1 no contempla tiempo de máquina. En los elementos manuales
+              (1, 2, 5 y 6) la diferencia es menor: refleja que MTM asume el método óptimo sin desviaciones,
+              mientras el cronometraje mide al operario real con todas sus variaciones.
+            </p>
+          </div>
+        </AnimSection>
+
+        <div className="border-t border-gray-100 mb-10" />
+
+        {/* Tabla comparativa */}
+        <AnimSection delay={100}>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-10">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Aspecto</th>
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Cronometraje (usado)</th>
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MTM-1</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {COMPARISON.map(({ aspect, crono, mtm }, i) => (
+                  <tr key={aspect} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{aspect}</td>
+                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{crono}</td>
+                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{mtm}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </AnimSection>
+
+        {/* Scorecard visual */}
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <AnimSection delay={100}>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
+              <p className="text-sm font-semibold text-gray-700 mb-5">Comparativa por dimensión</p>
+              <div className="space-y-5">
+                {METHOD_SCORES.map(({ label, crono, mtm }, i) => (
+                  <div key={label}>
+                    <p className="text-xs font-medium text-gray-600 mb-2">{label}</p>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-[#E8192C] w-24 flex-shrink-0">Cronometraje</span>
+                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                          <AnimBar pct={crono} delay={i * 80} />
+                        </div>
+                        <span className="text-xs text-gray-400 w-8 text-right">{crono}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500 w-24 flex-shrink-0">MTM-1</span>
+                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                          <AnimBar pct={mtm} delay={i * 80 + 100} />
+                        </div>
+                        <span className="text-xs text-gray-400 w-8 text-right">{mtm}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimSection>
+
+          {/* Movimientos MTM aplicados */}
+          <AnimSection delay={200}>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
+              <p className="text-sm font-semibold text-gray-700 mb-5">Movimientos MTM en la operación</p>
+              <div className="space-y-3">
+                {MTM_MOVEMENTS.map(({ symbol, name, apply }) => (
+                  <div key={symbol} className="flex gap-3 items-start">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#E8192C]/10 text-[#E8192C] font-black text-xs flex items-center justify-center">{symbol}</span>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-800">{name}</p>
+                      <p className="text-xs text-gray-400 leading-relaxed">{apply}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimSection>
+        </div>
+
+        {/* Conclusión */}
+        <AnimSection delay={200}>
+          <div className="bg-red-50 border border-red-100 rounded-xl p-4 md:p-6">
+            <h3 className="text-gray-900 font-semibold mb-2 text-sm md:text-base">¿Qué método conviene para esta operación?</h3>
+            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+              El <strong className="text-gray-900">cronometraje con Westinghouse</strong> fue la elección adecuada: la operación
+              ya estaba en curso, los ciclos son largos (10-16 min) y el nivel de detalle por elemento es suficiente para los objetivos del estudio.
+              El <strong className="text-gray-900">MTM</strong> sería valioso en una etapa de{' '}
+              <em>rediseño del método</em> — por ejemplo, para optimizar la carga de lámina o la configuración CNC
+              antes de implementar cambios, sin necesidad de observar ciclos reales.
+            </p>
+          </div>
+        </AnimSection>
 
       {/* EMPRESA */}
       <section id="empresa" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
@@ -891,322 +1212,6 @@ export default function Home() {
         </div>
       </section>
 
-      <LightDivider />
-
-      {/* COMPARACIÓN MTM */}
-      <section id="comparacion" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
-        <AnimSection>
-          <SectionLabel>07 · Comparación de métodos</SectionLabel>
-          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-6 md:mb-8">Cronometraje vs MTM</h2>
-        </AnimSection>
-
-        {/* Aplicación MTM-1 en Herraidea */}
-        <AnimSection delay={100}>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6 mb-6">
-            <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Aplicación a la operación de Herraidea</p>
-            <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-              Se aplicó MTM-1 a los mismos <strong className="text-gray-900">6 elementos</strong> estudiados por cronometraje,
-              descomponiendo cada uno en movimientos bimanuales básicos. El análisis arrojó{' '}
-              <strong className="text-gray-900">1,237.7 TMU</strong> de movimiento manual, equivalentes a{' '}
-              <strong className="text-gray-900">49.9 segundos</strong> de tiempo estándar (con 12% de tolerancia).
-              El tiempo de máquina del corte láser (<strong className="text-gray-900">~4 min</strong>) no es captado por MTM-1,
-              ya que el método solo contabiliza movimientos humanos.
-            </p>
-          </div>
-        </AnimSection>
-
-        {/* Accordion por elemento */}
-        <AnimSection delay={150}>
-          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Análisis de movimientos por elemento</h3>
-          <p className="text-gray-500 text-xs md:text-sm mb-4">Haz clic en cada elemento para ver el desglose de sub-elementos y movimientos MTM aplicados.</p>
-          <MtmAccordion elements={MTM_ELEMENTS} />
-        </AnimSection>
-
-        {/* Resumen consolidado MTM */}
-        <AnimSection delay={100} className="mt-8 mb-10">
-          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Resumen consolidado MTM-1</h3>
-          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-6">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Elemento</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">TMU Total</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivelado (s)</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">+12%</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">T. Estándar (s)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {MTM_ELEMENTS.map(({ num, title, tmu, tNivelado, tolerancia, tEstandar }, i) => (
-                  <tr key={num} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{num}. {title}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{tmu.toFixed(1)}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{tNivelado.toFixed(2)}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-gray-400 font-mono text-xs tabular-nums">{tolerancia.toFixed(2)}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-bold text-xs tabular-nums">{tEstandar.toFixed(2)}</td>
-                  </tr>
-                ))}
-                <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
-                  <td className="px-4 md:px-6 py-3 text-gray-900">TOTAL</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-gray-700 font-mono text-xs tabular-nums">1,237.7</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-gray-700 font-mono text-xs tabular-nums">44.56</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-gray-400 font-mono text-xs tabular-nums">5.35</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono text-sm tabular-nums">49.90</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* TMU bar chart */}
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-8">
-            <p className="text-sm font-semibold text-gray-700 mb-5">TMU por elemento — parte manual</p>
-            <div className="space-y-4">
-              {MTM_ELEMENTS.map(({ num, title, tmu, tmuPct }, i) => (
-                <div key={num} className="flex items-center gap-4">
-                  <div className="w-28 md:w-40 flex-shrink-0">
-                    <p className="text-xs font-medium text-gray-700 leading-tight">{num}. {title.split(' ').slice(0, 2).join(' ')}</p>
-                  </div>
-                  <div className="flex-1 h-7 bg-gray-100 rounded overflow-hidden">
-                    <AnimBar pct={tmuPct} delay={i * 80} />
-                  </div>
-                  <span className="text-xs font-bold text-gray-700 w-20 text-right flex-shrink-0 tabular-nums">{tmu.toFixed(0)} TMU</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimSection>
-
-        {/* Comparación real con cronometraje */}
-        <AnimSection delay={100} className="mb-10">
-          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Comparación real: Cronometraje vs MTM-1</h3>
-          <p className="text-gray-500 text-xs md:text-sm mb-5">Operario 1 (Experimentado) · F.C. = 1.21 · Suplementos = 14% (cronometraje) / 12% (MTM)</p>
-          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-4">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Elemento</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Crono T.E.S. (min)</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MTM-1 (min)</th>
-                  <th className="text-center px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Δ Diferencia</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {MTM_COMPARISON_REAL.map(({ elem, desc, crono, mtm, delta, pct }, i) => (
-                  <tr key={elem} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{elem}. {desc}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono text-xs tabular-nums">{crono.toFixed(2)}</td>
-                    <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono text-xs tabular-nums">{mtm.toFixed(2)}</td>
-                    <td className="px-4 md:px-6 py-3 text-center">
-                      <span className="text-xs font-bold text-orange-500 tabular-nums">{delta.toFixed(2)} ({pct}%)</span>
-                    </td>
-                  </tr>
-                ))}
-                <tr className="bg-red-50 border-t-2 border-[#E8192C]/20 font-bold">
-                  <td className="px-4 md:px-6 py-3 text-gray-900">TOTAL</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-[#E8192C] font-mono tabular-nums">14.85</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-gray-600 font-mono tabular-nums">0.83</td>
-                  <td className="px-4 md:px-6 py-3 text-center text-orange-500 font-bold">−14.02 min</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 md:p-5">
-            <h4 className="text-gray-900 font-semibold mb-1 text-sm">Lectura de las diferencias</h4>
-            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
-              La mayor brecha está en el <strong className="text-gray-900">Elemento 4 (Ejecutar corte)</strong>:
-              el cronometraje registra 5.61 min y el MTM-1 solo 0.09 min (−98%). No es un error metodológico —
-              el corte lo ejecuta la máquina y MTM-1 no contempla tiempo de máquina. En los elementos manuales
-              (1, 2, 5 y 6) la diferencia es menor: refleja que MTM asume el método óptimo sin desviaciones,
-              mientras el cronometraje mide al operario real con todas sus variaciones.
-            </p>
-          </div>
-        </AnimSection>
-
-        {/* MTM Hero Banner */}
-        <AnimSection delay={100}>
-          <div className="bg-gray-900 rounded-2xl p-7 md:p-12 mb-8 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-72 h-72 bg-[#E8192C]/5 rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#E8192C]/5 rounded-full translate-y-1/3 -translate-x-1/4 pointer-events-none" />
-            <div className="relative grid md:grid-cols-2 gap-8 items-start">
-
-              {/* Izquierda: acrónimo + definición */}
-              <div>
-                <div className="flex gap-0.5 mb-3">
-                  {['M','T','M'].map((l, i) => (
-                    <span key={i} className={`text-6xl md:text-8xl font-black leading-none ${i % 2 === 0 ? 'text-[#E8192C]' : 'text-white'}`}>{l}</span>
-                  ))}
-                </div>
-                <p className="text-white/50 text-xs uppercase tracking-widest mb-4">Methods Time Measurement · Sistema MTM-1</p>
-                <p className="text-white/80 text-sm md:text-base leading-relaxed mb-4">
-                  Conjunto de tablas de movimientos-tiempo que permite calcular el tiempo estándar descomponiendo
-                  cualquier operación manual en movimientos básicos con valores predeterminados —{' '}
-                  <strong className="text-white">sin necesidad de cronómetro ni de calificar al operario</strong>.
-                </p>
-                <p className="text-white/60 text-sm leading-relaxed mb-5">
-                  Existen alrededor de <strong className="text-white">50 sistemas diferentes</strong> de tiempos predeterminados.
-                  El MTM-1 es el más extendido en la industria manufacturera.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {['MTM-1','Work-Factor','MOST','MODAPTS'].map(s => (
-                    <span key={s} className={`text-xs px-3 py-1 rounded-full border ${s === 'MTM-1' ? 'bg-[#E8192C]/20 border-[#E8192C]/40 text-[#E8192C]' : 'bg-white/5 border-white/10 text-white/50'}`}>{s}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Derecha: datos clave */}
-              <div className="space-y-3">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Unidad de tiempo — TMU</p>
-                  <p className="text-white font-black text-2xl mb-1">1 TMU</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/50">
-                    <span>= 0.0006 min</span>
-                    <span>= 0.036 seg</span>
-                    <span>= 0.00001 hr</span>
-                  </div>
-                </div>
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-3">Formas de aplicación</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-white/5 rounded-lg p-3 text-center">
-                      <p className="text-white font-semibold text-sm">Observación directa</p>
-                      <p className="text-white/40 text-xs mt-1">Sobre el proceso en curso</p>
-                    </div>
-                    <div className="bg-white/5 rounded-lg p-3 text-center">
-                      <p className="text-white font-semibold text-sm">Visualización</p>
-                      <p className="text-white/40 text-xs mt-1">Sin proceso real, por simulación</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Procedimiento (5 pasos)</p>
-                  <ol className="space-y-1">
-                    {[
-                      'Dividir la operación en elementos',
-                      'Identificar los movimientos básicos',
-                      'Obtener valores TMU de las tablas',
-                      'Aplicar suplementos por fatiga',
-                      'Calcular el tiempo estándar',
-                    ].map((paso, i) => (
-                      <li key={i} className="flex gap-2 text-xs text-white/60">
-                        <span className="text-[#E8192C] font-bold flex-shrink-0">{i+1}.</span>
-                        <span>{paso}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimSection>
-
-        {/* Usos del MTM */}
-        <AnimSection delay={150}>
-          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Usos del MTM en la industria</h3>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-10">
-            {[
-              { n:'01', text:'Desarrollo de buenos métodos antes de que inicie la producción.' },
-              { n:'02', text:'Mejoramiento y optimización de los métodos actuales de trabajo.' },
-              { n:'03', text:'Establecimiento de normas de tiempo en trabajos individuales.' },
-              { n:'04', text:'Cálculo y control de costos de mano de obra.' },
-              { n:'05', text:'Entrenamiento de empleados para que tengan conciencia de los métodos.' },
-            ].map(({ n, text }) => (
-              <div key={n} className="flex gap-3 bg-gray-50 border border-gray-200 rounded-xl p-4 hover:border-[#E8192C]/30 transition-colors">
-                <span className="text-[#E8192C] font-black text-lg flex-shrink-0 leading-tight">{n}</span>
-                <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{text}</p>
-              </div>
-            ))}
-          </div>
-        </AnimSection>
-
-        <div className="border-t border-gray-100 mb-10" />
-
-        {/* Tabla comparativa */}
-        <AnimSection delay={100}>
-          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-10">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Aspecto</th>
-                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Cronometraje (usado)</th>
-                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MTM-1</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {COMPARISON.map(({ aspect, crono, mtm }, i) => (
-                  <tr key={aspect} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{aspect}</td>
-                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{crono}</td>
-                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{mtm}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </AnimSection>
-
-        {/* Scorecard visual */}
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <AnimSection delay={100}>
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
-              <p className="text-sm font-semibold text-gray-700 mb-5">Comparativa por dimensión</p>
-              <div className="space-y-5">
-                {METHOD_SCORES.map(({ label, crono, mtm }, i) => (
-                  <div key={label}>
-                    <p className="text-xs font-medium text-gray-600 mb-2">{label}</p>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-[#E8192C] w-24 flex-shrink-0">Cronometraje</span>
-                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                          <AnimBar pct={crono} delay={i * 80} />
-                        </div>
-                        <span className="text-xs text-gray-400 w-8 text-right">{crono}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500 w-24 flex-shrink-0">MTM-1</span>
-                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                          <AnimBar pct={mtm} delay={i * 80 + 100} />
-                        </div>
-                        <span className="text-xs text-gray-400 w-8 text-right">{mtm}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimSection>
-
-          {/* Movimientos MTM aplicados */}
-          <AnimSection delay={200}>
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
-              <p className="text-sm font-semibold text-gray-700 mb-5">Movimientos MTM en la operación</p>
-              <div className="space-y-3">
-                {MTM_MOVEMENTS.map(({ symbol, name, apply }) => (
-                  <div key={symbol} className="flex gap-3 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#E8192C]/10 text-[#E8192C] font-black text-xs flex items-center justify-center">{symbol}</span>
-                    <div>
-                      <p className="text-xs font-semibold text-gray-800">{name}</p>
-                      <p className="text-xs text-gray-400 leading-relaxed">{apply}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimSection>
-        </div>
-
-        {/* Conclusión */}
-        <AnimSection delay={200}>
-          <div className="bg-red-50 border border-red-100 rounded-xl p-4 md:p-6">
-            <h3 className="text-gray-900 font-semibold mb-2 text-sm md:text-base">¿Qué método conviene para esta operación?</h3>
-            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
-              El <strong className="text-gray-900">cronometraje con Westinghouse</strong> fue la elección adecuada: la operación
-              ya estaba en curso, los ciclos son largos (10-16 min) y el nivel de detalle por elemento es suficiente para los objetivos del estudio.
-              El <strong className="text-gray-900">MTM</strong> sería valioso en una etapa de{' '}
-              <em>rediseño del método</em> — por ejemplo, para optimizar la carga de lámina o la configuración CNC
-              antes de implementar cambios, sin necesidad de observar ciclos reales.
-            </p>
-          </div>
-        </AnimSection>
       </section>
 
       <LightDivider />
