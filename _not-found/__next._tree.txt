@@ -1,2 +1,2 @@
-:HL["/Operaciones-Cortadora-Laser/_next/static/chunks/0tu0w-_adikyg.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"JPeLYldnemfTzwGwJDlGu"}
+:HL["/Operaciones-Cortadora-Laser/_next/static/chunks/0s9~uj7-ooqtr.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"eMmAqOP6XVt1M6hPyrGDD"}
