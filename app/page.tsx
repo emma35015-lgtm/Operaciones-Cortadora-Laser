@@ -316,11 +316,20 @@ const GALLERY = [
   { id: '1zxO8r4DWDaBWQuAimJZQTfVTze21M6MU', label: 'Operación de la máquina' },
   { id: '1mJwAORMU29gQ7-e6emWbjfD42u86R9nX', label: 'Video del proceso' },
 ]
-const EXCEL_ID = '1OPP_TeAwLtnVYDm_2b4N55g6og1x6FVz'
+const EXCEL_ID   = '18ORCYEuae1g1rMZN9R7DynLXvknQ8tDH'
+const EXCEL_URL  = `https://docs.google.com/spreadsheets/d/${EXCEL_ID}/export?format=xlsx`
+const PDF_URL    = 'https://drive.google.com/uc?export=download&id=1mV-7LhFNxnbYsjf8VF-Wg1ah9tj1xW-7'
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      history.scrollRestoration = 'manual'
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+    }
+  }, [])
+
   return (
     <main className="min-h-screen bg-white text-gray-900">
 
@@ -341,17 +350,17 @@ export default function Home() {
           <a href="#conclusiones" className="hover:text-[#E8192C] transition-colors">Conclusiones</a>
           <a href="#comparacion"  className="hover:text-[#E8192C] transition-colors">MTM</a>
         </div>
-        <a href={`https://drive.google.com/uc?export=download&id=${EXCEL_ID}`} target="_blank" rel="noopener noreferrer"
+        <a href={EXCEL_URL} target="_blank" rel="noopener noreferrer"
           className="bg-[#E8192C] hover:bg-[#b91224] text-white text-xs md:text-sm font-medium px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
           Descargar Excel
         </a>
       </nav>
 
       {/* HERO */}
-      <section className="relative w-full bg-white overflow-hidden pt-14 border-b border-gray-100 min-h-[calc(100vh-56px)]">
-        <div className="flex flex-col md:flex-row min-h-[calc(100vh-56px)]">
+      <section className="relative w-full bg-white overflow-hidden pt-14 border-b border-gray-100 h-screen">
+        <div className="flex flex-col md:flex-row h-full">
           {/* Left: text */}
-          <div className="flex-none md:w-2/5 px-6 py-10 md:p-14 relative z-10 flex flex-col justify-center">
+          <div className="flex-1 md:flex-none md:w-2/5 px-6 py-8 md:p-14 relative z-10 flex flex-col justify-center overflow-y-auto">
             <AnimSection delay={0}>
               <span className="inline-block text-[#E8192C] text-xs font-semibold tracking-widest uppercase mb-3">
                 Estudio del Trabajo · La Salle Bajío
@@ -370,7 +379,7 @@ export default function Home() {
                 con calificación Westinghouse y análisis MTM-1.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <a href={`https://drive.google.com/uc?export=download&id=${EXCEL_ID}`} target="_blank" rel="noopener noreferrer"
+                <a href={EXCEL_URL} target="_blank" rel="noopener noreferrer"
                   className="bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-5 py-2.5 rounded-lg transition-all hover:scale-105 text-sm">
                   Descargar Reporte Excel
                 </a>
@@ -390,7 +399,7 @@ export default function Home() {
           </div>
 
           {/* Right: 3D model — dominant */}
-          <div className="flex-none md:w-3/5 h-72 md:h-auto relative bg-gray-50">
+          <div className="flex-none h-48 md:h-auto md:flex-none md:w-3/5 relative bg-gray-50">
             <LaserScene className="w-full h-full" light />
           </div>
         </div>
@@ -1219,21 +1228,34 @@ export default function Home() {
       {/* DESCARGA */}
       <section id="descarga" className="py-16 md:py-24 px-6 md:px-16 bg-gray-50">
         <AnimSection className="max-w-3xl mx-auto text-center">
-          <SectionLabel className="justify-center">Reporte completo</SectionLabel>
-          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-3 md:mb-4">Descarga el Excel</h2>
-          <p className="text-gray-500 mb-6 md:mb-8 text-sm md:text-base">
-            La hoja de cálculo incluye los datos de los tres operarios, tiempos observados,
-            factores Westinghouse y cálculo automático de T.N., T.E.S. y T.S.P.
+          <SectionLabel className="justify-center">Recursos del proyecto</SectionLabel>
+          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-3 md:mb-4">Descarga los archivos</h2>
+          <p className="text-gray-500 mb-8 md:mb-10 text-sm md:text-base">
+            Hoja de cálculo con datos completos y reporte final del estudio de tiempos.
           </p>
-          <a href={`https://drive.google.com/uc?export=download&id=${EXCEL_ID}`}
-            target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-6 md:px-8 py-3 md:py-4 rounded-xl transition-all hover:scale-105 text-base md:text-lg shadow-lg shadow-red-200">
-            <svg className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Descargar Reporte Excel
-          </a>
-          <p className="mt-3 text-gray-400 text-xs">Descarga directa desde Google Drive</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={EXCEL_URL} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-6 py-3 md:py-4 rounded-xl transition-all hover:scale-105 text-sm md:text-base shadow-lg shadow-red-200">
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <div className="text-left">
+                <p className="font-bold leading-tight">Descargar Excel</p>
+                <p className="text-white/70 text-xs font-normal">Segundo Parcial</p>
+              </div>
+            </a>
+            <a href={PDF_URL} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-3 md:py-4 rounded-xl transition-all hover:scale-105 text-sm md:text-base shadow-lg shadow-gray-300">
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <div className="text-left">
+                <p className="font-bold leading-tight">Descargar Reporte</p>
+                <p className="text-white/70 text-xs font-normal">Tercer Parcial</p>
+              </div>
+            </a>
+          </div>
+          <p className="mt-4 text-gray-400 text-xs">Descarga directa desde Google Drive</p>
         </AnimSection>
       </section>
 
