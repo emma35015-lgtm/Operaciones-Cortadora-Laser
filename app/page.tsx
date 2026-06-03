@@ -163,6 +163,34 @@ const MARCO_TEORICO = [
   { term: 'Tiempo Estándar Permitido (T.S.P.)', def: 'Considera el tiempo real productivo dentro de una jornada laboral, descontando los suplementos del tiempo disponible.' },
 ]
 
+const COMPARISON = [
+  { aspect: 'Base del tiempo',         crono: 'Medición directa con cronómetro en producción real',              mtm: 'Tablas de valores predeterminados por movimiento básico (TMU)' },
+  { aspect: 'Cuándo aplicar',          crono: 'Solo cuando la operación ya existe y se realiza',                  mtm: 'Antes o durante la producción; incluso por visualización/simulación' },
+  { aspect: 'Unidad de tiempo',        crono: 'Minutos / segundos',                                               mtm: '1 TMU = 0.0006 min = 0.036 seg' },
+  { aspect: 'Nivel de análisis',       crono: '6 elementos de tarea (análisis macro)',                            mtm: 'Micromovimientos: Alcanzar, Mover, Asir, Soltar, Girar, Posicionar…' },
+  { aspect: 'Calificación',            crono: 'Requerida — Sistema Westinghouse (Habilidad, Esfuerzo, Condiciones, Consistencia)', mtm: 'No requerida — tiempos predeterminados son independientes del operario' },
+  { aspect: 'Objetividad',             crono: 'Moderada — depende del juicio del analista para calificar',        mtm: 'Alta — valores fijos en tablas, sin calificación subjetiva' },
+  { aspect: 'Velocidad de aplicación', crono: 'Rápida — pocos ciclos completos',                                  mtm: 'Lenta — análisis movimiento a movimiento' },
+  { aspect: 'Entrenamiento',           crono: 'Básico — cronometraje y sistema Westinghouse',                     mtm: 'Especializado — identificación de 20+ movimientos básicos y tablas TMU' },
+  { aspect: 'En este estudio',         crono: '✓ Aplicado — 4 ciclos × 3 operarios',                             mtm: 'No aplicado' },
+]
+
+const MTM_MOVEMENTS = [
+  { symbol: 'R',  name: 'Alcanzar',         apply: 'Extender el brazo hacia la lámina, los controles del CNC o el botón de inicio.' },
+  { symbol: 'M',  name: 'Mover',            apply: 'Desplazar la lámina metálica desde el almacén hasta la mesa de corte.' },
+  { symbol: 'G',  name: 'Asir',             apply: 'Tomar la lámina, el retal sobrante o las piezas ya cortadas.' },
+  { symbol: 'RL', name: 'Soltar',           apply: 'Depositar las piezas o el retal al concluir su transporte.' },
+  { symbol: 'P',  name: 'Posicionar',       apply: 'Alinear la lámina sobre la mesa de corte y fijar el punto cero.' },
+  { symbol: 'AP', name: 'Aplicar presión',  apply: 'Presionar teclas del teclado CNC o sujetar la lámina contra la guía.' },
+]
+
+const METHOD_SCORES = [
+  { label: 'Objetividad',             crono: 55, mtm: 90 },
+  { label: 'Velocidad de aplicación', crono: 90, mtm: 25 },
+  { label: 'Detalle de análisis',     crono: 45, mtm: 95 },
+  { label: 'Facilidad de uso',        crono: 85, mtm: 30 },
+]
+
 const GALLERY = [
   { id: '1wpwmDophSGfIeKOxUKC0z3hcdwYCh2kW', label: 'Proceso de corte' },
   { id: '1kZTS2GjyPum91JiZ5HGUSAFlBM7C8bR1', label: 'Piezas terminadas' },
@@ -192,6 +220,7 @@ export default function Home() {
           <a href="#metodologia"  className="hover:text-[#E8192C] transition-colors">Metodología</a>
           <a href="#analisis"     className="hover:text-[#E8192C] transition-colors">Análisis</a>
           <a href="#conclusiones" className="hover:text-[#E8192C] transition-colors">Conclusiones</a>
+          <a href="#comparacion"  className="hover:text-[#E8192C] transition-colors">MTM</a>
         </div>
         <a href={`https://drive.google.com/uc?export=download&id=${EXCEL_ID}`} target="_blank" rel="noopener noreferrer"
           className="bg-[#E8192C] hover:bg-[#b91224] text-white text-xs md:text-sm font-medium px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
@@ -741,6 +770,109 @@ export default function Home() {
             ))}
           </AnimSection>
         </div>
+      </section>
+
+      <LightDivider />
+
+      {/* COMPARACIÓN MTM */}
+      <section id="comparacion" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
+        <AnimSection>
+          <SectionLabel>07 · Comparación de métodos</SectionLabel>
+          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-3 md:mb-4">Cronometraje vs MTM</h2>
+          <p className="text-gray-500 mb-8 md:mb-10 text-sm md:text-base max-w-2xl">
+            El MTM (Medición del Tiempo de los Métodos) es un sistema de tiempos predeterminados que
+            descompone cualquier operación manual en movimientos básicos con valores de tiempo fijos.
+            A diferencia del cronometraje, puede aplicarse <strong className="text-gray-900">antes de que inicie la producción</strong>.
+          </p>
+        </AnimSection>
+
+        {/* Tabla comparativa */}
+        <AnimSection delay={100}>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-10">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Aspecto</th>
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-[#E8192C] uppercase tracking-wider">Cronometraje (usado)</th>
+                  <th className="text-left px-4 md:px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MTM-1</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {COMPARISON.map(({ aspect, crono, mtm }, i) => (
+                  <tr key={aspect} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                    <td className="px-4 md:px-6 py-3 font-medium text-gray-800 text-xs md:text-sm">{aspect}</td>
+                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{crono}</td>
+                    <td className="px-4 md:px-6 py-3 text-gray-600 text-xs md:text-sm">{mtm}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </AnimSection>
+
+        {/* Scorecard visual */}
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <AnimSection delay={100}>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
+              <p className="text-sm font-semibold text-gray-700 mb-5">Comparativa por dimensión</p>
+              <div className="space-y-5">
+                {METHOD_SCORES.map(({ label, crono, mtm }, i) => (
+                  <div key={label}>
+                    <p className="text-xs font-medium text-gray-600 mb-2">{label}</p>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-[#E8192C] w-24 flex-shrink-0">Cronometraje</span>
+                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                          <AnimBar pct={crono} delay={i * 80} />
+                        </div>
+                        <span className="text-xs text-gray-400 w-8 text-right">{crono}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500 w-24 flex-shrink-0">MTM-1</span>
+                        <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                          <AnimBar pct={mtm} delay={i * 80 + 100} />
+                        </div>
+                        <span className="text-xs text-gray-400 w-8 text-right">{mtm}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimSection>
+
+          {/* Movimientos MTM aplicados */}
+          <AnimSection delay={200}>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 md:p-6">
+              <p className="text-sm font-semibold text-gray-700 mb-5">Movimientos MTM en la operación</p>
+              <div className="space-y-3">
+                {MTM_MOVEMENTS.map(({ symbol, name, apply }) => (
+                  <div key={symbol} className="flex gap-3 items-start">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#E8192C]/10 text-[#E8192C] font-black text-xs flex items-center justify-center">{symbol}</span>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-800">{name}</p>
+                      <p className="text-xs text-gray-400 leading-relaxed">{apply}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimSection>
+        </div>
+
+        {/* Conclusión */}
+        <AnimSection delay={200}>
+          <div className="bg-red-50 border border-red-100 rounded-xl p-4 md:p-6">
+            <h3 className="text-gray-900 font-semibold mb-2 text-sm md:text-base">¿Qué método conviene para esta operación?</h3>
+            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+              El <strong className="text-gray-900">cronometraje con Westinghouse</strong> fue la elección adecuada: la operación
+              ya estaba en curso, los ciclos son largos (10-16 min) y el nivel de detalle por elemento es suficiente para los objetivos del estudio.
+              El <strong className="text-gray-900">MTM</strong> sería valioso en una etapa de{' '}
+              <em>rediseño del método</em> — por ejemplo, para optimizar la carga de lámina o la configuración CNC
+              antes de implementar cambios, sin necesidad de observar ciclos reales.
+            </p>
+          </div>
+        </AnimSection>
       </section>
 
       <LightDivider />
