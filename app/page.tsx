@@ -383,9 +383,6 @@ export default function Home() {
                   className="bg-[#E8192C] hover:bg-[#b91224] text-white font-semibold px-5 py-2.5 rounded-lg transition-all hover:scale-105 text-sm">
                   Descargar Reporte Excel
                 </a>
-                <a href="#empresa" className="border border-gray-300 hover:border-gray-400 text-gray-700 px-5 py-2.5 rounded-lg transition-all hover:bg-gray-50 text-sm">
-                  Ver contenido
-                </a>
               </div>
             </AnimSection>
 
