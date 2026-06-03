@@ -778,12 +778,103 @@ export default function Home() {
       <section id="comparacion" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimSection>
           <SectionLabel>07 · Comparación de métodos</SectionLabel>
-          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-3 md:mb-4">Cronometraje vs MTM</h2>
-          <p className="text-gray-500 mb-8 md:mb-10 text-sm md:text-base max-w-2xl">
-            El MTM (Medición del Tiempo de los Métodos) es un sistema de tiempos predeterminados que
-            descompone cualquier operación manual en movimientos básicos con valores de tiempo fijos.
-            A diferencia del cronometraje, puede aplicarse <strong className="text-gray-900">antes de que inicie la producción</strong>.
-          </p>
+          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-6 md:mb-8">Cronometraje vs MTM</h2>
+        </AnimSection>
+
+        {/* MTM Hero Banner */}
+        <AnimSection delay={100}>
+          <div className="bg-gray-900 rounded-2xl p-7 md:p-12 mb-8 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-[#E8192C]/5 rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#E8192C]/5 rounded-full translate-y-1/3 -translate-x-1/4 pointer-events-none" />
+            <div className="relative grid md:grid-cols-2 gap-8 items-start">
+
+              {/* Izquierda: acrónimo + definición */}
+              <div>
+                <div className="flex gap-0.5 mb-3">
+                  {['M','T','M'].map((l, i) => (
+                    <span key={i} className={`text-6xl md:text-8xl font-black leading-none ${i % 2 === 0 ? 'text-[#E8192C]' : 'text-white'}`}>{l}</span>
+                  ))}
+                </div>
+                <p className="text-white/50 text-xs uppercase tracking-widest mb-4">Methods Time Measurement · Sistema MTM-1</p>
+                <p className="text-white/80 text-sm md:text-base leading-relaxed mb-4">
+                  Conjunto de tablas de movimientos-tiempo que permite calcular el tiempo estándar descomponiendo
+                  cualquier operación manual en movimientos básicos con valores predeterminados —{' '}
+                  <strong className="text-white">sin necesidad de cronómetro ni de calificar al operario</strong>.
+                </p>
+                <p className="text-white/60 text-sm leading-relaxed mb-5">
+                  Existen alrededor de <strong className="text-white">50 sistemas diferentes</strong> de tiempos predeterminados.
+                  El MTM-1 es el más extendido en la industria manufacturera.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['MTM-1','Work-Factor','MOST','MODAPTS'].map(s => (
+                    <span key={s} className={`text-xs px-3 py-1 rounded-full border ${s === 'MTM-1' ? 'bg-[#E8192C]/20 border-[#E8192C]/40 text-[#E8192C]' : 'bg-white/5 border-white/10 text-white/50'}`}>{s}</span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Derecha: datos clave */}
+              <div className="space-y-3">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Unidad de tiempo — TMU</p>
+                  <p className="text-white font-black text-2xl mb-1">1 TMU</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/50">
+                    <span>= 0.0006 min</span>
+                    <span>= 0.036 seg</span>
+                    <span>= 0.00001 hr</span>
+                  </div>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-3">Formas de aplicación</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                      <p className="text-white font-semibold text-sm">Observación directa</p>
+                      <p className="text-white/40 text-xs mt-1">Sobre el proceso en curso</p>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                      <p className="text-white font-semibold text-sm">Visualización</p>
+                      <p className="text-white/40 text-xs mt-1">Sin proceso real, por simulación</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-[#E8192C] text-xs font-semibold uppercase tracking-widest mb-2">Procedimiento (5 pasos)</p>
+                  <ol className="space-y-1">
+                    {[
+                      'Dividir la operación en elementos',
+                      'Identificar los movimientos básicos',
+                      'Obtener valores TMU de las tablas',
+                      'Aplicar suplementos por fatiga',
+                      'Calcular el tiempo estándar',
+                    ].map((paso, i) => (
+                      <li key={i} className="flex gap-2 text-xs text-white/60">
+                        <span className="text-[#E8192C] font-bold flex-shrink-0">{i+1}.</span>
+                        <span>{paso}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimSection>
+
+        {/* Usos del MTM */}
+        <AnimSection delay={150}>
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Usos del MTM en la industria</h3>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-10">
+            {[
+              { n:'01', text:'Desarrollo de buenos métodos antes de que inicie la producción.' },
+              { n:'02', text:'Mejoramiento y optimización de los métodos actuales de trabajo.' },
+              { n:'03', text:'Establecimiento de normas de tiempo en trabajos individuales.' },
+              { n:'04', text:'Cálculo y control de costos de mano de obra.' },
+              { n:'05', text:'Entrenamiento de empleados para que tengan conciencia de los métodos.' },
+            ].map(({ n, text }) => (
+              <div key={n} className="flex gap-3 bg-gray-50 border border-gray-200 rounded-xl p-4 hover:border-[#E8192C]/30 transition-colors">
+                <span className="text-[#E8192C] font-black text-lg flex-shrink-0 leading-tight">{n}</span>
+                <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
         </AnimSection>
 
         {/* Tabla comparativa */}
