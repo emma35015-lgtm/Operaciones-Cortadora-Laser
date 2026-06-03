@@ -337,47 +337,6 @@ export default function Home() {
 
       <LightDivider />
 
-      {/* INTRODUCCIÓN */}
-      <section id="introduccion" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
-        <AnimSection>
-          <SectionLabel>01 · Introducción</SectionLabel>
-          <h2 className="text-2xl md:text-4xl font-bold mt-2 mb-6 md:mb-8">¿Qué es el estudio de tiempos?</h2>
-        </AnimSection>
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
-          <AnimSection delay={100}>
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-              El estudio de tiempos es una de las técnicas fundamentales de la ingeniería de métodos,
-              utilizada para determinar el <strong className="text-gray-900">tiempo estándar</strong> que
-              debe asignarse a una tarea específica realizada por un trabajador calificado.
-            </p>
-          </AnimSection>
-          <AnimSection delay={200}>
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-              Esta herramienta resulta indispensable para la planeación de la producción, el balanceo de
-              líneas, la determinación de costos de mano de obra y la evaluación del desempeño de los operarios.
-            </p>
-          </AnimSection>
-        </div>
-        <AnimSection delay={100}>
-          <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Objetivos del estudio</h3>
-          <div className="grid md:grid-cols-2 gap-3 md:gap-4">
-            {[
-              'Dividir la tarea en elementos cronometrables y registrar tiempos en cuatro ciclos por operario.',
-              'Aplicar el sistema de calificación Westinghouse para determinar el factor de calificación.',
-              'Calcular el T.N., T.E.S. y T.S.P. considerando una jornada laboral de 480 minutos.',
-              'Comparar el desempeño de tres operarios y emitir recomendaciones de mejora.',
-            ].map((obj, i) => (
-              <div key={i} className="flex gap-3 md:gap-4 bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
-                <span className="text-[#E8192C] font-bold text-base md:text-lg flex-shrink-0">{String(i+1).padStart(2,'0')}</span>
-                <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{obj}</p>
-              </div>
-            ))}
-          </div>
-        </AnimSection>
-      </section>
-
-      <LightDivider />
-
       {/* MARCO TEÓRICO */}
       <section id="marco" className="py-16 md:py-24 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimSection>
