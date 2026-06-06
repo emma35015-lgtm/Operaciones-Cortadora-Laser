@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState, useCallback } from 'react'
+import HerraideaHero from '@/components/herraidea-hero'
 
 const LaserScene = dynamic(
   () => import('@/components/laser-scene').then(m => ({ default: m.LaserScene })),
@@ -332,6 +333,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
+
+      {/* HERO HERRAIDEA — marca */}
+      <HerraideaHero />
 
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 py-3 md:py-4 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
