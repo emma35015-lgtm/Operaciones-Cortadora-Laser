@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import logoNodot from '../assets/herraidea-logo-nodot.png'
 
 export default function HerraideaHero() {
   return (
@@ -237,10 +238,8 @@ export default function HerraideaHero() {
           <span className="herr-logo-wrap">
             <Image
               className="herr-logo"
-              src="/herraidea-logo-nodot.png"
+              src={logoNodot}
               alt="Herraidea"
-              width={613}
-              height={109}
               priority
             />
             <span className="herr-idot" aria-hidden="true" />
