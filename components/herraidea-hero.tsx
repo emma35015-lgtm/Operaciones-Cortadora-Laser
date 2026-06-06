@@ -64,7 +64,7 @@ export default function HerraideaHero() {
         }
         .herr-badge {
           position: absolute;
-          top: clamp(22px, 4vh, 42px);
+          top: clamp(68px, 9vh, 88px);
           left: 50%;
           transform: translateX(-50%);
           z-index: 5;
@@ -107,7 +107,7 @@ export default function HerraideaHero() {
           animation: herrRise 1s cubic-bezier(.2,.7,.2,1) both;
         }
         .herr-logo {
-          width: clamp(260px, 44vw, 620px);
+          width: clamp(320px, 56vw, 780px);
           height: auto;
           display: block;
         }
